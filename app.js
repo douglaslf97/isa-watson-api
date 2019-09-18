@@ -16,7 +16,7 @@ const app = express();
   "iam_serviceid_crn": "crn:v1:bluemix:public:iam-identity::a/c4957bbe94ef4eee8a4e2f2d39aa6190::serviceid:ServiceId-c4895632-787e-4bc8-8d1d-08c37413567f",
   "url": "https://gateway.watsonplatform.net/visual-recognition/api"
 }
-
+9ed7eddc-9308-47d0-9394-446f67cdacfe
 DefaultCustomModel_1782870859
 */
 
@@ -32,6 +32,8 @@ const params = {
   threshold
 }
 app.get('/', (req, res)=>{
+  const file= req.file;
+  console.log(req.body);
   visualRecognition.classify(params, (error, response)=>{
     if(error)
       res.send({error})
