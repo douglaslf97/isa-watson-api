@@ -1,11 +1,7 @@
 const express = require('express');
 
-const imageRecognition = require('ibm-watson/visual-recognition/v3')
-const visualRecognition = new imageRecognition({
-  version: '2019-09-17',
-  iam_apikey: "KZr3YqhhYzxaRStsv66t1srTpJ0s7MccoK4LYksFbe-L",
-  url: "https://gateway.watsonplatform.net/visual-recognition/api",
-})
+const routes = require('./routes');
+
 const app = express();
 /*
 {
@@ -24,23 +20,9 @@ app.use(express.json({}))
 app.use(express.urlencoded({
   extended: true
 }))
-var classifier_ids = ["DefaultCustomModel_1782870859"];
-var threshold = 0.6;
-const params = {
-  url: 'https://c8.alamy.com/comp/B2B900/an-unripe-apple-growing-on-an-apple-tree-B2B900.jpg',
-  classifier_ids,
-  threshold
-}
-app.get('/', (req, res)=>{
-  const file= req.file;
-  console.log(req.body);
-  visualRecognition.classify(params, (error, response)=>{
-    if(error)
-      res.send({error})
-    res.send({response})
-  }) 
-  
-})
+
+app.use('/visual-recognition', routes);
+
 app.listen(process.env.PORT || 3000, ()=>{
   console.log('Running!');
 })
