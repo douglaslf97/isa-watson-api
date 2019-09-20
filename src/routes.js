@@ -10,10 +10,10 @@ routes.post("/", (req, res) => {
   const { image_url } = req.body;
   if (image_url) {
     const params = {
-      classifier_ids,
+      classifier_ids: vsc.classifier_ids,
       url: image_url
     };  
-    vsc.classify(params, (error, response) => {
+    vsc.visualRecognition.classify(params, (error, response) => {
       if (error) res.send({ error });
       res.send({ response });
     });

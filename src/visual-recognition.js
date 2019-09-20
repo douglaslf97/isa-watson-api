@@ -7,5 +7,5 @@ const visualRecognition = new imageRecognition({
 var classifier_ids = ["DefaultCustomModel_1782870859"];
 
 
-module.exports = visualRecognition 
+module.exports = {visualRecognition, classifier_ids} 
 
