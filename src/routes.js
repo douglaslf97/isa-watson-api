@@ -7,7 +7,7 @@ const routes = Router();
 const path = require("path");
 
 routes.post("/", (req, res) => {
-  const { image_url } = req.body.image_url;
+  const { image_url } = req.body;
   if (image_url) {
     const params = {
       classifier_ids
