@@ -1,18 +1,15 @@
 const Router = require("express").Router;
-const multer = require("./config/multerConfig");
-const fs = require("fs");
+const multer = require('./config/multerConfig');
 const vsc = require("./visual-recognition");
-require("dotenv").config();
 const routes = Router();
-const path = require("path");
-
-routes.post("/", (req, res) => {
-  const { image_url } = req.body;
-  if (image_url) {
+const api = require("./services/api");
+routes.post("/", multer.single('file'), (req, res) => {
+  const file = req.file; 
+  if (file) {
     const params = {
       classifier_ids: vsc.classifier_ids,
-      url: image_url
-    };  
+      images_file: file.buffer
+    };
     vsc.visualRecognition.classify(params, (error, response) => {
       if (error) res.send({ error });
       res.send({ response });
@@ -21,5 +18,29 @@ routes.post("/", (req, res) => {
     res.json({ msg: "Nenhuma imagem processada!" });
   }
 });
-
-module.exports = routes;
+routes.get("/tester", (req, res) => {
+ 
+  api
+    .post(
+      "/",
+      {
+        classifier_ids: vsc.classifier_ids,
+        url: "https://previews.123rf.com/images/dionisvera/dionisvera1401/dionisvera140100013/25407148-ripe-apple-with-leaf.jpg"
+      },
+      {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization:
+            "Basic " + "KZr3YqhhYzxaRStsv66t1srTpJ0s7MccoK4LYksFbe-L"
+        }
+      }
+    )
+    .then(response => {
+      res.send({ response });
+    })
+    .catch(error => {
+      res.send({ error });
+    });
+});
+module.exports = app => app.use("/visual-recognition", routes);
