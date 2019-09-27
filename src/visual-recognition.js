@@ -5,7 +5,7 @@ const visualRecognition = new imageRecognition({
   iam_apikey: "KZr3YqhhYzxaRStsv66t1srTpJ0s7MccoK4LYksFbe-L",
   url
 });
-var classifier_ids = ["DefaultCustomModel_1782870859"];
+var classifier_ids = ["DefaultCustomModel_610979111"];
 
 
 module.exports = {visualRecognition, classifier_ids, url} 
