@@ -8,7 +8,8 @@ app.use(express.urlencoded({
   extended: true
 }))
 
-require('./routes')(app);
+require('./routes/visual-recognition')(app);
+require('./routes/translate')(app);
 app.listen(process.env.PORT || 3000, ()=>{
   console.log('Running!');
 })

@@ -1,8 +1,8 @@
 const Router = require("express").Router;
-const multer = require('./config/multerConfig');
-const vsc = require("./visual-recognition");
+const multer = require('../config/multerConfig');
+const vsc = require("../visual-recognition");
 const routes = Router();
-const api = require("./services/api");
+const api = require("../services/api");
 routes.post("/", multer.single('file'), (req, res) => {
   const file = req.file; 
   if (file) {
