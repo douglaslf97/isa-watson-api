@@ -5,7 +5,7 @@ const visualRecognition = new imageRecognition({
   iam_apikey: "KZr3YqhhYzxaRStsv66t1srTpJ0s7MccoK4LYksFbe-L",
   url
 });
-var classifier_ids = ["food"];
+var classifier_ids = ["FruitClassify_753795313"];
 
 
 module.exports = {visualRecognition, classifier_ids, url} 
