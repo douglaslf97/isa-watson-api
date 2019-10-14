@@ -7,13 +7,19 @@ routes.post("/", multer.single('file'), (req, res) => {
   const file = req.file; 
   if (file) {
     const params = {
-      classifier_ids: vsc.classifier_ids,
-      images_file: file.buffer
+      collectionIds: vsc.classifier_ids,
+      imagesFile: [{
+        data: file.buffer,
+        contentType: file.encoding
+      }],
+      features: ['objects']
     };
-    vsc.visualRecognition.classify(params, (error, response) => {
-      if (error) res.send({ error });
-      res.send({ response });
-    });
+    vsc.visualRecognition.analyze(params).then(response=>{
+      const { result } = response;
+      res.send({result})
+    }).catch(error=>{
+      res.send({error})
+    })
   } else {
     res.json({ msg: "Nenhuma imagem processada!" });
   }
